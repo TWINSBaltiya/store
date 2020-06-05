@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using System;
 
 namespace Store.Web.Controllers
 {
@@ -13,6 +14,13 @@ namespace Store.Web.Controllers
 
         public IActionResult Index(string query)
         {
+            ViewBag.query = query;
+
+            if (String.IsNullOrWhiteSpace(query))
+            {
+                return View("Index", new Book[0]);
+            }
+
             var books = bookService.GetAllByQuery(query);
 
             return View("Index", books);

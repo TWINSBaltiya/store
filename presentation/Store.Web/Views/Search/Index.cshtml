@@ -8,14 +8,15 @@
 
 @if (Model.Length == 0)
 {
-    <p>Ничего не найдено.</p>
+    <p condition="@(!String.IsNullOrWhiteSpace(ViewBag.query))">Ничего не найдено.</p>
+    <p inversion="@(!String.IsNullOrWhiteSpace(ViewBag.query))">Введите Ваш запрос.</p>
 }
 else
 {
     <ul>
-    @foreach (var book in Model)
-    {
-        <li><a href="@Url.Action("Index", "Book", new { id = book.Id })">@book.Title</a></li>
-    }
+        @foreach (var book in Model)
+        {
+            <li><a href="@Url.Action("Index", "Book", new { id = book.Id })">@book.Title</a></li>
+        }
     </ul>
 }
